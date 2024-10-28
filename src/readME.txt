@@ -1,5 +1,7 @@
 to compile the code:
 
+cd to 'src'
+
 run 'make'
 
 and then run './main' <dimacs filename'
