@@ -1,0 +1,11 @@
+Node 1: 0 outgoing edges
+Node 2: 1 outgoing edges
+Node 3: 1 outgoing edges
+Node 4: 2 outgoing edges
+Node 5: 3 outgoing edges
+Node 6: 2 outgoing edges
+Node 7: 2 outgoing edges
+Node 8: 2 outgoing edges
+Node 9: 2 outgoing edges
+Node 10: 1 outgoing edges
+Node 11: 1 outgoing edges
