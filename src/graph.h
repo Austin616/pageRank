@@ -1,4 +1,3 @@
-// graph.h
 #ifndef GRAPH_H
 #define GRAPH_H
 
@@ -25,4 +24,4 @@ void printDIMACS(const CSRGraph &graph, const std::string &filename);
 // Function to print node numbers and labels to a file
 void printNodeLabels(const CSRGraph &graph, const std::string &filename);
 
-#endif // GRAPH_H
+#endif
