@@ -1,0 +1,4 @@
+Outdegree 0: 1 nodes
+Outdegree 1: 4 nodes
+Outdegree 2: 5 nodes
+Outdegree 3: 1 nodes
