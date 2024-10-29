@@ -1,4 +1,3 @@
-// graph.c
 #include "graph.h"
 #include <iostream>
 #include <fstream>
@@ -74,8 +73,6 @@ CSRGraph readDIMACS(const std::string &filename)
     return graph;
 }
 
-
-
 // Function to print CSR graph to DIMACS format
 void printDIMACS(const CSRGraph &graph, const std::string &filename)
 {
@@ -107,13 +104,12 @@ void printNodeLabels(const CSRGraph &graph, const std::string &filename)
         throw std::runtime_error("Error: Cannot open output file.");
     }
 
-    // Print header
     outfile << "Node Number\tNode Label\n"; // Using tab for better alignment
 
     // Print node labels 1-indexed
     for (int i = 1; i <= graph.num_nodes; ++i)
-    {                                                           // Loop from 1 to num_nodes
-        outfile << i << "\t\t" << graph.node_labels[i] << "\n"; // Ensure proper formatting
+    { // Loop from 1 to num_nodes
+        outfile << i << "\t\t" << graph.node_labels[i] << "\n";
     }
     outfile.close();
 }

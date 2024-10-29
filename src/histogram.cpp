@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <algorithm> // for std::max
+#include <algorithm>
 #include "graph.h"
 
 // Function to compute the histogram of outdegrees
@@ -17,27 +17,20 @@ std::vector<int> computeOutdegreeHistogram(const CSRGraph &graph, bool log_scale
         outdegrees[node] = end - start; // Count of outgoing edges for this node
     }
 
-    if (!log_scale) // If log_scale is false, compute the histogram without bucketing
-    {
-        // Find the maximum outdegree to size the histogram
-        int max_outdegree = *std::max_element(outdegrees.begin(), outdegrees.end());
-        std::vector<int> histogram(max_outdegree + 1, 0); // Initialize histogram for outdegree counts
+    // Compute the histogram based on log_scale
+    int max_outdegree = *std::max_element(outdegrees.begin(), outdegrees.end());
+    std::vector<int> histogram; 
 
-        // Populate histogram: count how many nodes have each outdegree
+    if (!log_scale) // Without bucketing
+    {
+        histogram.resize(max_outdegree + 1, 0); 
         for (int outdegree : outdegrees)
         {
             ++histogram[outdegree];
         }
-
-        return histogram;
     }
-    else // If log_scale is true, compute the histogram with logarithmic scaling
+    else // With logarithmic scaling
     {
-        // Find the maximum outdegree
-        int max_outdegree = *std::max_element(outdegrees.begin(), outdegrees.end());
-        std::vector<int> histogram; // Initialize histogram for log scale
-
-        // Populate histogram: count how many nodes fall into logarithmic bins
         for (int outdegree : outdegrees)
         {
             int bucket_index = outdegree > 0 ? static_cast<int>(std::log2(outdegree)) : 0;
@@ -45,9 +38,9 @@ std::vector<int> computeOutdegreeHistogram(const CSRGraph &graph, bool log_scale
                 histogram.resize(bucket_index + 1, 0);
             ++histogram[bucket_index];
         }
-
-        return histogram;
     }
+
+    return histogram;
 }
 
 // Function to print the histogram to a file
@@ -72,7 +65,6 @@ void printHistogram(const std::vector<int> &histogram, const std::string &filena
     {
         for (size_t i = 0; i < histogram.size(); ++i)
         {
-            // Calculate the range for log scale
             int range_start = (i == 0) ? 1 : static_cast<int>(pow(2, i - 1)); // Start at 1 for bucket 0
             int range_end = static_cast<int>(pow(2, i)); // End at 2^i for bucket i
             
@@ -83,4 +75,3 @@ void printHistogram(const std::vector<int> &histogram, const std::string &filena
 
     file.close();
 }
-

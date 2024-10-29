@@ -4,6 +4,7 @@
 #include "histogram.cpp"
 
 bool boolVal;
+
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -16,23 +17,22 @@ int main(int argc, char *argv[])
     {
         std::string input_file = "../txtfiles/" + std::string(argv[1]);
         std::cout << "Loading graph from: " << input_file << std::endl;
+
+        // Set boolVal based on input file
         if (std::string(argv[1]) == "wiki.dimacs.txt")
         {
             boolVal = false;
         }
-        else if (std::string(argv[1]) == "rmat15.dimacs.txt")
+        else if (std::string(argv[1]) == "rmat15.dimacs.txt" || std::string(argv[1]) == "road-NY.dimacs.txt")
         {
             boolVal = true;
         }
-        else if (std::string(argv[1]) == "road-NY.dimacs.txt")
-        {
-            boolVal = true;
-        }
+
         // Load graph from DIMACS format
         CSRGraph graph = readDIMACS(input_file);
 
         // Print graph back to DIMACS format for verification
-        printDIMACS(graph, "output.dimacs"); // Adjust output file name as needed
+        printDIMACS(graph, "output.dimacs");
 
         // Print node labels to a file
         printNodeLabels(graph, "node_labels.txt");
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         std::vector<double> page_rank = computePageRank(graph, "pageRank_results.txt");
 
         // Compute and save the out-degree histogram
-        std::vector<int> histogram = computeOutdegreeHistogram(graph, boolVal); // 10 is the bucket size
+        std::vector<int> histogram = computeOutdegreeHistogram(graph, boolVal);
         printHistogram(histogram, "out_degree_histogram.txt", boolVal);
 
         std::cout << "Graph loaded, PageRank and histogram computed, and output files created successfully.\n";

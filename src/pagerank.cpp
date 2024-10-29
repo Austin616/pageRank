@@ -1,9 +1,8 @@
-// pagerank.c
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cmath>
-#include "graph.cpp" // Include your graph structure and functions
+#include "graph.cpp"
 
 const double DAMPING_FACTOR = 0.85;        // Damping factor for PageRank
 const double CONVERGENCE_THRESHOLD = 1e-4; // Convergence threshold
@@ -12,25 +11,23 @@ const double CONVERGENCE_THRESHOLD = 1e-4; // Convergence threshold
 std::vector<double> computePageRank(const CSRGraph &graph, const std::string &filename)
 {
     int num_nodes = graph.num_nodes;
-    std::vector<double> page_rank(num_nodes, 1.0 / num_nodes); // Initialize PageRank values
-    std::vector<double> new_page_rank(num_nodes, 0.0);         // New PageRank values for the next iteration
+    std::vector<double> page_rank(num_nodes, 1.0 / num_nodes);
+    std::vector<double> new_page_rank(num_nodes, 0.0);
     bool converged = false;
 
     while (!converged)
     {
-        converged = true; // Assume convergence until proven otherwise
+        converged = true;
 
         // Push PageRank values
         for (int src = 0; src < num_nodes; ++src)
         {
             double current_rank = page_rank[src];
-
-            // Distribute PageRank to neighbors
             int start_idx = graph.row_ptr[src];
             int end_idx = graph.row_ptr[src + 1];
             int out_degree = end_idx - start_idx;
 
-            // If the current node has outgoing edges
+            // Distribute PageRank to neighbors if the current node has outgoing edges
             if (out_degree > 0)
             {
                 double distributed_rank = current_rank / out_degree;
