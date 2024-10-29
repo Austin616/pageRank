@@ -8,4 +8,5 @@ clean:
 	del -f node_labels.txt
 	del -f output.dimacs
 	del -f pageRank_results.txt
+	del -f out_degree_histogram.txt
 
